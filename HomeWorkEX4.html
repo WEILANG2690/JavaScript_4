@@ -5,24 +5,25 @@
     <title></title>
 	<meta charset="utf-8" />
     <script>
-         var picN = 1;
+         var picN = 0;
          var tNum = 5;
          document.addEventListener("DOMContentLoaded", function () {
-             
-             var imgs = document.getElementById("img");
 
+             //document.querySelectorAll('img');
             //var num = 1;
             //var tNum = 5;        
             //var time = setInterval(function () { runT(tNum); }, 2000);
-
-
+             for (var i = 1; i <= tNum; i++) {
+                 document.getElementById("con" + i).style.display = "none";
+             }
+             document.getElementById("con" + (picN+1)).style.display = "block";
             var time = setInterval(runT, 2000);
              //setInterval(runT, 2000);
 
             document.getElementById("stop").onclick = function () { stopT(time); }
             document.getElementById("start").onclick = function () { time = startT(time); }
-            document.getElementById("next").onclick
-            document.getElementById("prv").onclick
+            //document.getElementById("next").onclick
+            document.getElementById("back").onclick = back;
          });
 
 
@@ -33,10 +34,10 @@
             for (var i = 1; i <= tNum; i++) {
                 document.getElementById("con" + i).style.display = "none";
             }
-            document.getElementById("con" + picN).style.display = "block";
             picN++;
+            document.getElementById("con" + picN).style.display = "block";
              //alert(picN);
-            if (picN == tNum) {
+            if (picN == tNum+1) {
                 picN = 1;
             }             
          }
@@ -47,14 +48,34 @@
          function startT(time) {
              return setInterval(runT, 2000);
          }
-         function next() {
+         //function next() {
+             
+         //}
+         function back() {
+             //document.
+             ////tNum = 5;
+             ////for (var i = 1; i <= tNum;i++){
+             var imgs = document.getElementsByTagName('div');
+
+             //for (var i = 0; i < imgs.length; i++) {
+             //    imgs[i].style.display = "none";
+             //}
+             for (var i = 1; i <= tNum; i++) {
+                 document.getElementById("con" + i).style.display = "none";
+             }
+
+             if (picN <= 1) { // 如果picN <=1;
+                 picN = 5;     // picN回到第五張圖
+             }
+             else {          //否則執行 picN--
+                 picN--;
+             }
+             document.getElementById("con" + picN).style.display = "block";
+             //imgs[parseInt(picN)-1].style.display = "block";
+             //imgs[picN - 2].style.display = 'block';
              
          }
-         function back() {
-             if (i < 0) {
-                 
-             }
-         }
+       
 
     </script>
 </head>
@@ -77,6 +98,6 @@
         </div>
     </div>
     <input id="stop" value="stop"   type="button"  /><input id="start" value="start" type="button" />
-    <input type="button" id="next" value="next"/><input type="button" id="pre" value="pre" />
+    <input type="button" id="next" value="next"/><input type="button" id="back" value="back" />
 </body>
 </html>
