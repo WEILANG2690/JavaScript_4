@@ -5,14 +5,15 @@
     <title></title>
 	<meta charset="utf-8" />
     <script>
-         var picN = 0;
-         var tNum = 5;
+         var picN = 0;    //圖片記數
+         var tNum = 5; //圖片張數
          document.addEventListener("DOMContentLoaded", function () {
 
              //document.querySelectorAll('img');
             //var num = 1;
             //var tNum = 5;        
-            //var time = setInterval(function () { runT(tNum); }, 2000);
+             //var time = setInterval(function () { runT(tNum); }, 2000);
+
              for (var i = 1; i <= tNum; i++) {
                  document.getElementById("con" + i).style.display = "none";
              }
@@ -22,7 +23,7 @@
 
             document.getElementById("stop").onclick = function () { stopT(time); }
             document.getElementById("start").onclick = function () { time = startT(time); }
-            //document.getElementById("next").onclick
+            document.getElementById("next").onclick = next;
             document.getElementById("back").onclick = back;
          });
 
@@ -31,35 +32,50 @@
         //function runT(tNum) {
 
          function runT() {
+             //自動輪播
             for (var i = 1; i <= tNum; i++) {
                 document.getElementById("con" + i).style.display = "none";
             }
+
             picN++;
             document.getElementById("con" + picN).style.display = "block";
              //alert(picN);
-            if (picN == tNum+1) {
-                picN = 1;
+            console.log(picN);
+             
+            if (picN ==tNum) {  //當picN到第五張
+                picN = 0;           // picN回到第一張
             }             
          }
 
          function stopT(time) {
+             //時間暫停
              clearInterval(time);
          }
          function startT(time) {
+             //暫停後繼續播放
              return setInterval(runT, 2000);
          }
-         //function next() {
-             
-         //}
-         function back() {
-             //document.
-             ////tNum = 5;
-             ////for (var i = 1; i <= tNum;i++){
+         function next() {
+             //回下一張
              var imgs = document.getElementsByTagName('div');
 
-             //for (var i = 0; i < imgs.length; i++) {
-             //    imgs[i].style.display = "none";
-             //}
+             for (var i = 1; i <= tNum; i++) {
+                 document.getElementById("con" + i).style.display = "none";
+             }
+             if (picN >= 5) { // 如果picN >=5;
+                 picN = 1;     // picN回到第一張圖
+             }
+             else {          //否則執行 picN
+                 picN++;
+             }
+             document.getElementById("con" + picN).style.display = "block";
+             
+         }
+         
+         function back() {
+             //回上一張
+             var imgs = document.getElementsByTagName('div');
+
              for (var i = 1; i <= tNum; i++) {
                  document.getElementById("con" + i).style.display = "none";
              }
@@ -71,8 +87,6 @@
                  picN--;
              }
              document.getElementById("con" + picN).style.display = "block";
-             //imgs[parseInt(picN)-1].style.display = "block";
-             //imgs[picN - 2].style.display = 'block';
              
          }
        
