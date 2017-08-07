@@ -1,18 +1,18 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
     <script>
          var picN = 0;    //圖片記數
          var tNum = 5; //圖片張數
          document.addEventListener("DOMContentLoaded", function () {
-
              //document.querySelectorAll('img');
             //var num = 1;
-            //var tNum = 5;        
+            //var tNum = 5;
              //var time = setInterval(function () { runT(tNum); }, 2000);
+
 
              for (var i = 1; i <= tNum; i++) {
                  document.getElementById("con" + i).style.display = "none";
@@ -20,33 +20,26 @@
              document.getElementById("con" + (picN+1)).style.display = "block";
             var time = setInterval(runT, 2000);
              //setInterval(runT, 2000);
-
             document.getElementById("stop").onclick = function () { stopT(time); }
-            document.getElementById("start").onclick = function () { time = startT(time); }
-            document.getElementById("next").onclick = next;
-            document.getElementById("back").onclick = back;
+            document.getElementById("start").onclick = function () { time = startT(time); }//將startT(time)存給變數
+            document.getElementById("next").onclick = function () { next(time) }
+            document.getElementById("back").onclick = function () { back(time) }
          });
-
-
-
         //function runT(tNum) {
-
          function runT() {
              //自動輪播
             for (var i = 1; i <= tNum; i++) {
                 document.getElementById("con" + i).style.display = "none";
             }
-
             picN++;
             document.getElementById("con" + picN).style.display = "block";
              //alert(picN);
             console.log(picN);
-             
+
             if (picN ==tNum) {  //當picN到第五張
                 picN = 0;           // picN回到第一張
-            }             
+            }
          }
-
          function stopT(time) {
              //時間暫停
              clearInterval(time);
@@ -55,10 +48,10 @@
              //暫停後繼續播放
              return setInterval(runT, 2000);
          }
-         function next() {
+         function next(time) {
              //回下一張
+             clearInterval(time);
              var imgs = document.getElementsByTagName('div');
-
              for (var i = 1; i <= tNum; i++) {
                  document.getElementById("con" + i).style.display = "none";
              }
@@ -69,17 +62,16 @@
                  picN++;
              }
              document.getElementById("con" + picN).style.display = "block";
-             
-         }
-         
-         function back() {
-             //回上一張
-             var imgs = document.getElementsByTagName('div');
 
+         }
+
+         function back(time) {
+             //回上一張
+             clearInterval(time);
+             var imgs = document.getElementsByTagName('div');
              for (var i = 1; i <= tNum; i++) {
                  document.getElementById("con" + i).style.display = "none";
              }
-
              if (picN <= 1) { // 如果picN <=1;
                  picN = 5;     // picN回到第五張圖
              }
@@ -87,18 +79,32 @@
                  picN--;
              }
              document.getElementById("con" + picN).style.display = "block";
-             
+
          }
-       
 
     </script>
+    <style>
+        div{
+            width:650px;
+        }
+
+        .st{
+            text-align:center;
+            border:2px black solid;
+            margin:auto;    
+        }
+        .st1{
+            /*display:block;*/
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
-    <div>
+    <div class="st">
         <div id="con1">
             <img src="../PM/PM1.png" />
         </div>
-        <div id="con2">         
+        <div id="con2">
             <img src="../PM/PM2.png" />
         </div>
         <div id="con3">
@@ -110,8 +116,11 @@
         <div id="con5">
             <img src="../PM/PM5.png" />
         </div>
+        <input type="button" id="back" value="back" /><input id="start" value="start" type="button" />
+        <input id="stop" value="stop" type="button" /><input type="button" id="next" value="next" />
     </div>
-    <input id="stop" value="stop"   type="button"  /><input id="start" value="start" type="button" />
-    <input type="button" id="next" value="next"/><input type="button" id="back" value="back" />
+    <div class="st1">
+
+    </div>
 </body>
 </html>
